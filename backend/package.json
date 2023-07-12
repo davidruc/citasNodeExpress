@@ -10,7 +10,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "LTS",
   "devDependencies": {
     "class-transformer": "0.5.1",
     "dotenv": "16.3.1",

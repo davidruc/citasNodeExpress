@@ -63,3 +63,9 @@ CREATE TABLE usuario(
     FOREIGN KEY (usu_genero) REFERENCES genero(gen_id),
     FOREIGN KEY (usu_acudiente) REFERENCES acudiente(acu_codigo)
 );
+INSERT INTO tipo_documento SET ?;
+# Primera consulta
+SELECT * FROM usuario ORDER BY usu_nombre;
+
+# Segunda consulta
+SELECT * FROM cita ORDER BY cit_codigo;
