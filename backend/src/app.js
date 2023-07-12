@@ -1,13 +1,16 @@
 import express from "express";
-import citasRoutes from "./routes/cita.routes.js"
+import rt from "./routes/cita.routes.js";
+import dotenv from "dotenv";
 
+dotenv.config();
 const app = express();
-app.set("port", 5510);
+
 app.use(express.json());
+app.use("/api/citas", rt);
 
-app.use("/api/citas", citasRoutes);
 
-
+const config = JSON.parse(process.env.MY_CONFIG);
+app.listen(config, ()=>console.log(`http://${config.hostname}:${config.port}`));
 
 
 export default app;
