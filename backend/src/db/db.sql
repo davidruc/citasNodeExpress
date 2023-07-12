@@ -1,69 +1,71 @@
 CREATE DATABASE MER_citas_medicas;
 USE MER_citas_medicas;
 CREATE TABLE estado_cita(
-    estcita_id INT PRIMARY KEY AUTO_INCREMENT,
-    estcita_nombre VARCHAR(20)
+    estcita_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    estcita_nombre VARCHAR(20) NOT NULL
 );
 CREATE TABLE consultorio(
-    cons_codigo INT PRIMARY KEY AUTO_INCREMENT,
-    cons_nombre VARCHAR(50)
+    cons_codigo INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    cons_nombre VARCHAR(50) NOT NULL
 );
 CREATE TABLE especialidad(
-    esp_id INT PRIMARY KEY AUTO_INCREMENT,
-    esp_nombre VARCHAR(20)
+    esp_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    esp_nombre VARCHAR(20) NOT NULL
 );
 CREATE TABLE tipo_documento(
-    tipdoc_id INT PRIMARY KEY AUTO_INCREMENT,
-    tipdoc_nombre VARCHAR(20),
-    tipdoc_abreviatura VARCHAR(20)
+    tipdoc_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    tipdoc_nombre VARCHAR(20) NOT NULL,
+    tipdoc_abreviatura VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE genero(
-    gen_id INT PRIMARY KEY AUTO_INCREMENT,
-    gen_nombre VARCHAR(50),
-    gen_abreviatura VARCHAR(20)
+    gen_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    gen_nombre VARCHAR(50) NOT NULL,
+    gen_abreviatura VARCHAR(20) NOT NULL
 );
 CREATE TABLE medico(
-    med_nroMatriculaProsional INT PRIMARY KEY,
-    med_nombreCompleto VARCHAR (120),
-    med_consultorio INT ,
-    med_especialidad INT ,
+    med_nroMatriculaProsional INT PRIMARY KEY NOT NULL,
+    med_nombreCompleto VARCHAR (120) NOT NULL,
+    med_consultorio INT NOT NULL,
+    med_especialidad INT NOT NULL,
     FOREIGN KEY (med_consultorio) REFERENCES consultorio(cons_codigo),
     FOREIGN KEY (med_especialidad) REFERENCES especialidad(esp_id)
 );
 
 CREATE TABLE cita(
-    cit_codigo INT PRIMARY KEY AUTO_INCREMENT,
-    cit_fecha DATE,
-    cit_estadoCita INT,
-    cit_medico INT,
-    cit_datosUsuario INT,
+    cit_codigo INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    cit_fecha DATE NOT NULL, 
+    cit_estadoCita INT NOT NULL,
+    cit_medico INT NOT NULL,
+    cit_datosUsuario INT NOT NULL,
     FOREIGN KEY (cit_estadoCita) REFERENCES estado_cita(estcita_id),
     FOREIGN KEY (cit_medico) REFERENCES medico(med_nroMatriculaProsional),
     FOREIGN KEY (cit_datosUsuario) REFERENCES usuario(usu_id)
 );
 CREATE TABLE acudiente(
-    acu_codigo INT PRIMARY KEY AUTO_INCREMENT,
-    acu_nombreCompleto VARCHAR (100),
-    acu_telefono VARCHAR (100),
+    acu_codigo INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    acu_nombreCompleto VARCHAR (100) NOT NULL,
+    acu_telefono VARCHAR (100) ,
     acu_direccion VARCHAR (200)
 );
 CREATE TABLE usuario(
-    usu_id INT PRIMARY KEY,
-    usu_nombre VARCHAR (50),
-    usu_segdo_nombre VARCHAR (45),
-    usu_primer_apellido_usuar VARCHAR (50),
+    usu_id INT PRIMARY KEY NOT NULL,
+    usu_nombre VARCHAR (50) NOT NULL,
+    usu_segdo_nombre VARCHAR (45) ,
+    usu_primer_apellido_usuar VARCHAR (50) NOT NULL,
     usu_segdo_apellido_usuar VARCHAR (50),
-    usu_telefono VARCHAR (50),
-    usu_direccion VARCHAR (100),
+    usu_telefono VARCHAR (50) NOT NULL,
+    usu_direccion VARCHAR (100) ,
     usu_email VARCHAR (100),
-    usu_tipodoc INT,
-    usu_genero INT,
-    usu_acudiente INT, 
+    usu_edad INT NOT NULL,
+    usu_tipodoc INT NOT NULL,
+    usu_genero INT NOT NULL ,
+    usu_acudiente INT NOT NULL, 
     FOREIGN KEY (usu_tipodoc) REFERENCES tipo_documento(tipdoc_id),
     FOREIGN KEY (usu_genero) REFERENCES genero(gen_id),
     FOREIGN KEY (usu_acudiente) REFERENCES acudiente(acu_codigo)
 );
+
 INSERT INTO tipo_documento SET ?;
 # Primera consulta
 SELECT * FROM usuario ORDER BY usu_nombre;
@@ -130,11 +132,15 @@ INSERT INTO acudiente (acu_nombreCompleto, acu_telefono, acu_direccion) VALUES (
 
 
 
-INSERT INTO usuario (usu_id, usu_nombre, usu_segdo_nombre, usu_primer_apellido_usuar, usu_segdo_apellido_usuar, usu_telefono, usu_direccion, usu_email, usu_tipodoc, usu_genero, usu_acudiente) VALUES (1, 'Juan', 'David', 'Pérez', 'Gómez', '1234567890', 'Calle 123, Ciudad', 'juan@example.com', 1, 1, 1);
-INSERT INTO usuario (usu_id, usu_nombre, usu_segdo_nombre, usu_primer_apellido_usuar, usu_segdo_apellido_usuar, usu_telefono, usu_direccion, usu_email, usu_tipodoc, usu_genero, usu_acudiente) VALUES (2, 'María', 'Fernanda', 'Rodríguez', 'García', '9876543210', 'Avenida 456, Ciudad', 'maria@example.com', 2, 2, 2);
-INSERT INTO usuario (usu_id, usu_nombre, usu_segdo_nombre, usu_primer_apellido_usuar, usu_segdo_apellido_usuar, usu_telefono, usu_direccion, usu_email, usu_tipodoc, usu_genero, usu_acudiente) VALUES (3, 'Carlos', '', 'González', 'Sánchez', '5555555555', 'Carrera 789, Ciudad', 'carlos@example.com', 1, 1, 3);
-INSERT INTO usuario (usu_id, usu_nombre, usu_segdo_nombre, usu_primer_apellido_usuar, usu_segdo_apellido_usuar, usu_telefono, usu_direccion, usu_email, usu_tipodoc, usu_genero, usu_acudiente) VALUES (4, 'Ana', 'María', 'López', 'Torres', '9999999999', 'Calle Principal, Ciudad', 'ana@example.com', 3, 2, 4);
-INSERT INTO usuario (usu_id, usu_nombre, usu_segdo_nombre, usu_primer_apellido_usuar, usu_segdo_apellido_usuar, usu_telefono, usu_direccion, usu_email, usu_tipodoc, usu_genero, usu_acudiente) VALUES (5, 'Pedro', '', 'Ramírez', 'Sánchez', '1111111111', 'Avenida Central, Ciudad', 'pedro@example.com', 4, 3, 5);
+
+
+
+
+INSERT INTO usuario (usu_id, usu_nombre, usu_segdo_nombre, usu_primer_apellido_usuar,usu_edad, usu_segdo_apellido_usuar, usu_telefono, usu_direccion, usu_email, usu_tipodoc, usu_genero, usu_acudiente) VALUES (1, 'Juan', 'David', 'Pérez',20, 'Gómez', '1234567890', 'Calle 123, Ciudad', 'juan@example.com', 1, 1, 1);
+INSERT INTO usuario (usu_id, usu_nombre, usu_segdo_nombre, usu_primer_apellido_usuar,usu_edad, usu_segdo_apellido_usuar, usu_telefono, usu_direccion, usu_email, usu_tipodoc, usu_genero, usu_acudiente) VALUES (2, 'María', 'Fernanda', 'Rodríguez',22, 'García', '9876543210', 'Avenida 456, Ciudad', 'maria@example.com', 2, 2, 2);
+INSERT INTO usuario (usu_id, usu_nombre, usu_segdo_nombre, usu_primer_apellido_usuar,usu_edad, usu_segdo_apellido_usuar, usu_telefono, usu_direccion, usu_email, usu_tipodoc, usu_genero, usu_acudiente) VALUES (3, 'Carlos', '', 'González',21, 'Sánchez', '5555555555', 'Carrera 789, Ciudad', 'carlos@example.com', 1, 1, 3);
+INSERT INTO usuario (usu_id, usu_nombre, usu_segdo_nombre, usu_primer_apellido_usuar,usu_edad, usu_segdo_apellido_usuar, usu_telefono, usu_direccion, usu_email, usu_tipodoc, usu_genero, usu_acudiente) VALUES (4, 'Ana', 'María', 'López',50, 'Torres', '9999999999', 'Calle Principal, Ciudad', 'ana@example.com', 3, 2, 4);
+
 
 
 
@@ -142,4 +148,3 @@ INSERT INTO cita (cit_codigo, cit_fecha, cit_estadoCita, cit_medico, cit_datosUs
 INSERT INTO cita (cit_codigo, cit_fecha, cit_estadoCita, cit_medico, cit_datosUsuario) VALUES (2, '2023-07-14', 2, 234567, 2);
 INSERT INTO cita (cit_codigo, cit_fecha, cit_estadoCita, cit_medico, cit_datosUsuario) VALUES (3, '2023-07-15', 3, 345678, 3);
 INSERT INTO cita (cit_codigo, cit_fecha, cit_estadoCita, cit_medico, cit_datosUsuario) VALUES (4, '2023-07-16', 4, 456789, 4);
-INSERT INTO cita ( cit_fecha, cit_estadoCita, cit_medico, cit_datosUsuario) VALUES ( '2023-07-12', 5, 567890, 5);

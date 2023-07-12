@@ -25,6 +25,9 @@ export class usuario{
     @Expose({name: "usu_email"})
     @Type(()=> String)
     usu_email: String;
+    @Expose({name: "usu_edad"})
+    @Transform(({ value })=> parseInt(value), {toClassOnly: true})
+    usu_edad: number;
     @Expose({name: "usu_tipodoc"})
     @Transform(({ value })=> parseInt(value), {toClassOnly: true})
     usu_tipodoc: number;
@@ -43,6 +46,7 @@ export class usuario{
         segundo_apellido: String,
         telefono: String,
         email: String,
+        edad: number,
         tipo_documento: number,
         datos_usuario: number,
         acudiente: number
@@ -54,6 +58,7 @@ export class usuario{
         this.usu_segdo_apellido_usuar = segundo_apellido;
         this.usu_telefono = telefono;
         this.usu_email = email;
+        this.usu_edad = edad;
         this.usu_tipodoc = tipo_documento;
         this.cit_datosUsuario = datos_usuario;
         this.usu_acudiente = acudiente;
