@@ -9,5 +9,4 @@ Para el presente proyecto se van a utilizar las siguientes dependencias en sus r
         "typescript": "5.1.6"
     ```
 
-
-    
+* Endpoint de la consulta por citas. *http://127.3.34.23:5510/api/citas*
