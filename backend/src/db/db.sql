@@ -241,7 +241,8 @@ consultorio.cons_nombre AS "consultorio"
 FROM cita
 INNER JOIN usuario ON cita.cit_datosUsuario = usuario.usu_id
 INNER JOIN medico ON cita.cit_medico = medico.med_nroMatriculaProsional
-INNER JOIN consultorio ON medico.med_consultorio = consultorio.cons_codigo;
+INNER JOIN consultorio ON medico.med_consultorio = consultorio.cons_codigo
+WHERE usuario.usu_id = 1;
 
 
 #Obtener todas las citas realizadas por los pacientes de un genero si su estado de la cita fue atendidad
