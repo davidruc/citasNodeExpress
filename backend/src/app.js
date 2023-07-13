@@ -2,7 +2,8 @@ import express from "express";
 import rt from "./routes/cita.routes.js";
 import routesUsuario from "./routes/usuario.routes.js";
 import routerMedico from "./routes/medico.routes.js";
-import routeCitaXpaciente from "./routes/cita_paciente.js"
+import routeCitaXpaciente from "./routes/cita_paciente.js";
+import routeCitasMedico from "./routes/citas_medico.js"
 import dotenv from "dotenv";
 
 
@@ -13,7 +14,9 @@ app.use(express.json());
 app.use("/api/citas", rt);
 app.use("/api/usuarios", routesUsuario);
 app.use("/api/medico", routerMedico);
-app.use("/api/citaPaciente", routeCitaXpaciente)
+app.use("/api/citaPaciente", routeCitaXpaciente);
+app.use("/api/citasMedico", routeCitasMedico);
+
 const config = JSON.parse(process.env.MY_CONFIG);
 app.listen(config, ()=>console.log(`http://${config.hostname}:${config.port}`));
 
