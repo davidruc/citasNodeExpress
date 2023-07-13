@@ -257,7 +257,7 @@ INNER JOIN genero ON usuario.usu_genero = genero.gen_id
 WHERE cit_estadoCita = 1 AND genero.gen_abreviatura = "F";
 
 #Insertar un paciente a la tabla usuario pero si es menor de edad solicitar primero que ingrese el acudiente y validar si ya estaba registrado el acudiente.
-INSERT INTO; 
+INSERT INTO usuario(usu_id,usu_nombre,usu_segdo_nombre,usu_primer_apellido_usuar,usu_segdo_apellido_usuar,usu_telefono,usu_direccion,usu_email,usu_edad,usu_tipodoc,usu_genero,usu_acudiente) VALUES (?) ; 
 
 #Mostrar todas las citas que fueron rechazadas y en un mes específico, mostrar la fecha de la cita, el nombre del usuario y el médico.
 SELECT
