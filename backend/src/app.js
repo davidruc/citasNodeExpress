@@ -6,6 +6,7 @@ import routeCitaXpaciente from "./routes/cita_paciente.routes.js";
 import routeCitasMedico from "./routes/citas_medico.routes.js";
 import routeCitasDelPaciente from "./routes/citas_del_paciente.routes.js";
 import routeCitasPorDia from "./routes/cita_x_dia.routes.js";
+import routesConsultorioDoctores from "./routes/consultorios.routes.js";
 import dotenv from "dotenv";
 
 
@@ -20,6 +21,7 @@ app.use("/api/ProximaCitaPaciente", routeCitaXpaciente);
 app.use("/api/citasMedico", routeCitasMedico);
 app.use("/api/citasPaciente", routeCitasDelPaciente);
 app.use("/api/citasXfecha", routeCitasPorDia);
+app.use("/api/consultorios", routesConsultorioDoctores);
 
 const config = JSON.parse(process.env.MY_CONFIG);
 app.listen(config, ()=>console.log(`http://${config.hostname}:${config.port}`));
