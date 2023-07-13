@@ -1,4 +1,6 @@
 import {Expose, Type, Transform} from "class-transformer";
+import {IsInt} from 'class-validator';
+import 'reflect-metadata';
 
 export class cita{
     @Expose({name: "cit_codigo"})

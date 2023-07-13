@@ -178,8 +178,7 @@ usuario.usu_nombre AS "nombre_usuario",
 medico.med_nombreCompleto AS "nombre_medico"
 FROM cita 
 INNER JOIN usuario ON cita.cit_datosUsuario = usuario.usu_id
-INNER JOIN medico ON cita.cit_medico = medico.med_nroMatriculaProsional
-WHERE cit_medico = 123456;
+INNER JOIN medico ON cita.cit_medico = medico.med_nroMatriculaProsional;
 
 #Obtener las consultorías para un paciente específico (por ejemplo, paciente **con usu_id 1**)
 SELECT 
@@ -258,18 +257,18 @@ INNER JOIN genero ON usuario.usu_genero = genero.gen_id
 WHERE cit_estadoCita = 1 AND genero.gen_abreviatura = "F";
 
 #Insertar un paciente a la tabla usuario pero si es menor de edad solicitar primero que ingrese el acudiente y validar si ya estaba registrado el acudiente.
+INSERT INTO; 
 
 #Mostrar todas las citas que fueron rechazadas y en un mes específico, mostrar la fecha de la cita, el nombre del usuario y el médico.
 SELECT
 cita.cit_codigo AS "codigo_cita",
+cita.cit_fecha AS "fecha",
 usuario.usu_id AS "id_usuario",
 usuario.usu_nombre AS "nombre_usuario",
-medico.med_nombreCompleto AS "medico",
-consultorio.cons_nombre AS "consultorio"
+medico.med_nombreCompleto AS "medico"
 FROM cita
 INNER JOIN usuario ON cita.cit_datosUsuario = usuario.usu_id
 INNER JOIN medico ON cita.cit_medico = medico.med_nroMatriculaProsional
-INNER JOIN consultorio ON medico.med_consultorio = consultorio.cons_codigo
-WHERE usuario.usu_id = 1;
+WHERE cit_estadoCita = 2 AND MONTH(cit_fecha) = MONTH(?);
 
 

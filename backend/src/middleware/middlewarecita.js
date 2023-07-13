@@ -2,6 +2,8 @@ import express from "express";
 import "reflect-metadata";
 import { plainToClass } from "class-transformer";
 import {cita} from "../controller/cita.js"
+import {validate} from 'class-validator'
+
 
 const proxyCita = express();
 proxyCita.use((req, res, next)=>{
