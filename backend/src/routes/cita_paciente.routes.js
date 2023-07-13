@@ -21,7 +21,7 @@ routeCitaXpaciente.get("/:id?", proxyCita, (req,res)=>{
         usuario.usu_nombre AS "nombre_paciente"
         FROM cita
         INNER JOIN usuario ON cita.cit_datosUsuario = usuario.usu_id
-        WHERE usu_id = ? ORDER BY cita.cit_fecha`, req.params.id]
+        WHERE usu_id = ? ORDER BY cita.cit_fecha LIMIT 1`, req.params.id]
         : [`SELECT 
         cita.cit_codigo AS "codigo_cita",
         cita.cit_fecha AS "fecha_cita",
