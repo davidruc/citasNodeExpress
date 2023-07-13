@@ -7,6 +7,7 @@ import routeCitasMedico from "./routes/citas_medico.routes.js";
 import routeCitasDelPaciente from "./routes/citas_del_paciente.routes.js";
 import routeCitasPorDia from "./routes/cita_x_dia.routes.js";
 import routesConsultorioDoctores from "./routes/consultorios.routes.js";
+import routeNoCitaXmedico from "./routes/No_cita_medico.routes.js"
 import dotenv from "dotenv";
 
 
@@ -22,6 +23,8 @@ app.use("/api/citasMedico", routeCitasMedico);
 app.use("/api/citasPaciente", routeCitasDelPaciente);
 app.use("/api/citasXfecha", routeCitasPorDia);
 app.use("/api/consultorios", routesConsultorioDoctores);
+app.use("/api/numeroCitas", routeNoCitaXmedico);
+
 
 const config = JSON.parse(process.env.MY_CONFIG);
 app.listen(config, ()=>console.log(`http://${config.hostname}:${config.port}`));
