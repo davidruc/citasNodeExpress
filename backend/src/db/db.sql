@@ -259,6 +259,17 @@ WHERE cit_estadoCita = 1 AND genero.gen_abreviatura = "F";
 
 #Insertar un paciente a la tabla usuario pero si es menor de edad solicitar primero que ingrese el acudiente y validar si ya estaba registrado el acudiente.
 
-#if(req.body.usu_edad <= 18){
+#Mostrar todas las citas que fueron rechazadas y en un mes específico, mostrar la fecha de la cita, el nombre del usuario y el médico.
+SELECT
+cita.cit_codigo AS "codigo_cita",
+usuario.usu_id AS "id_usuario",
+usuario.usu_nombre AS "nombre_usuario",
+medico.med_nombreCompleto AS "medico",
+consultorio.cons_nombre AS "consultorio"
+FROM cita
+INNER JOIN usuario ON cita.cit_datosUsuario = usuario.usu_id
+INNER JOIN medico ON cita.cit_medico = medico.med_nroMatriculaProsional
+INNER JOIN consultorio ON medico.med_consultorio = consultorio.cons_codigo
+WHERE usuario.usu_id = 1;
 
 

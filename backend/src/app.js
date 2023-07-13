@@ -9,6 +9,7 @@ import routeCitasPorDia from "./routes/cita_x_dia.routes.js";
 import routesConsultorioDoctores from "./routes/consultorios.routes.js";
 import routeNoCitaXmedico from "./routes/No_cita_medico.routes.js";
 import routeConsultorioPaciente from "./routes/paciente_consultorio.routes.js";
+import routeCitaAtendidaGenero from "./routes/Ct_a_genero.routes.js";
 import dotenv from "dotenv";
 
 
@@ -27,6 +28,10 @@ app.use("/api/consultorios", routesConsultorioDoctores);
 app.use("/api/numeroCitas", routeNoCitaXmedico);
 app.use("/api/consultorioCita", routeConsultorioPaciente);
 
+//! En esta ruta el estado 1 significa aprobado, y los valores a entrar como parámetros de la url son las abreviaturas de los generos.
+app.use("/api/atendidaXGenero", routeCitaAtendidaGenero);
+
+//! En esta ruta el estado 2 significa rechazado. 
 
 const config = JSON.parse(process.env.MY_CONFIG);
 app.listen(config, ()=>console.log(`http://${config.hostname}:${config.port}`));
