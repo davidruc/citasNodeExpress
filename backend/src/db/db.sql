@@ -145,6 +145,119 @@ INSERT INTO usuario (usu_id, usu_nombre, usu_segdo_nombre, usu_primer_apellido_u
 
 
 INSERT INTO cita (cit_codigo, cit_fecha, cit_estadoCita, cit_medico, cit_datosUsuario) VALUES (1, '2023-07-13', 1, 123456, 1);
+INSERT INTO cita (cit_codigo, cit_fecha, cit_estadoCita, cit_medico, cit_datosUsuario) VALUES (6, '2023-07-13', 1, 123456, 2);
 INSERT INTO cita (cit_codigo, cit_fecha, cit_estadoCita, cit_medico, cit_datosUsuario) VALUES (2, '2023-07-14', 2, 234567, 2);
 INSERT INTO cita (cit_codigo, cit_fecha, cit_estadoCita, cit_medico, cit_datosUsuario) VALUES (3, '2023-07-15', 3, 345678, 3);
 INSERT INTO cita (cit_codigo, cit_fecha, cit_estadoCita, cit_medico, cit_datosUsuario) VALUES (4, '2023-07-16', 4, 456789, 4);
+#Obtener todos los médicos de una especialidad específica (por ejemplo, **'Cardiología'**):
+SELECT medico.med_nombreCompleto AS "medicos",
+medico.med_especialidad AS "fk_especialidad" ,
+especialidad.esp_nombre AS "especialidad_medico"
+FROM medico 
+INNER JOIN especialidad ON medico.med_especialidad = especialidad.esp_id
+WHERE especialidad.esp_nombre = "req.param";
+
+#Encontrar la próxima cita para un paciente específico (por ejemplo, el paciente con **usu_id 1**):
+SELECT 
+cita.cit_codigo AS "codigo_cita",
+cita.cit_fecha AS "fecha_cita",
+cita.cit_datosUsuario AS "datos_usuario",
+usuario.usu_id AS "fk_usuario",
+usuario.usu_nombre AS "nombre_paciente"
+FROM cita
+INNER JOIN usuario ON cita.cit_datosUsuario = usuario.usu_id
+WHERE usu_id = 2 ORDER BY cita.cit_fecha;
+
+
+#Encontrar todos los pacientes que tienen citas con un médico específico (por ejemplo, el médico con **med_nroMatriculaProsional 1**)
+SELECT 
+cita.cit_codigo AS "codigo_cita",
+cita.cit_medico AS "fk_medico_asignado",
+cita.cit_datosUsuario AS "fk_usuario",
+usuario.usu_nombre AS "nombre_usuario",
+medico.med_nombreCompleto AS "nombre_medico"
+FROM cita 
+INNER JOIN usuario ON cita.cit_datosUsuario = usuario.usu_id
+INNER JOIN medico ON cita.cit_medico = medico.med_nroMatriculaProsional
+WHERE cit_medico = 123456;
+
+#Obtener las consultorías para un paciente específico (por ejemplo, paciente **con usu_id 1**)
+SELECT 
+cita.cit_codigo AS "codigo_cita",
+cita.cit_fecha AS "fecha_cita",
+cita.cit_datosUsuario AS "fk_usuario",
+usuario.usu_nombre AS "nombre_paciente",
+cita.cit_medico AS "fk_medico",
+medico.med_nombreCompleto AS "nombre_medico"
+FROM cita
+INNER JOIN usuario ON cita.cit_datosUsuario = usuario.usu_id
+INNER JOIN medico ON cita.cit_medico = medico.med_nroMatriculaProsional
+WHERE cit_datosUsuario = 2;
+
+
+#Encontrar todas las citas para un día específico (por ejemplo, **'2023-07-12'**)
+SELECT 
+cita.cit_codigo AS "codigo_cita",
+cita.cit_fecha AS "fecha",
+cita.cit_estadoCita AS "estado_cita",
+cita.cit_medico AS "matricula_medico",
+medico.med_nombreCompleto AS "medico",
+usuario.usu_nombre AS "nombre_usuario",
+usuario.usu_primer_apellido_usuar AS "apellido_usuario"
+FROM cita
+INNER JOIN usuario ON cita.cit_datosUsuario = usuario.usu_id
+INNER JOIN medico ON cita.cit_medico = medico.med_nroMatriculaProsional
+ WHERE cita.cit_fecha = '2023-07-13';
+
+#Obtener los médicos y sus consultorios
+SELECT 
+medico.med_nroMatriculaProsional AS "matricula_medica",
+medico.med_nombreCompleto AS "nombre",
+especialidad.esp_nombre AS "especialidad",
+medico.med_consultorio AS "numero_consultorio",
+consultorio.cons_nombre AS "nombre_consultorio"
+FROM medico
+INNER JOIN consultorio ON medico.med_consultorio = consultorio.cons_codigo
+INNER JOIN especialidad ON medico.med_especialidad = especialidad.esp_id;
+
+#Contar el número de citas que un médico tiene en un día específico (por ejemplo, el médico con **med_nroMatriculaProsional 1 en '2023-07-12'**)
+SELECT 
+cita.cit_medico AS "matricula_medico", 
+medico.med_nombreCompleto AS "nombre_medico",
+COUNT(*) AS "total_citas"
+FROM cita 
+INNER JOIN medico ON cita.cit_medico = medico.med_nroMatriculaProsional
+WHERE cit_fecha ='2023-07-13' AND cit_medico = 123456
+GROUP BY cit_medico;
+
+
+#Obtener los consultorio donde se aplicó las citas de un paciente
+SELECT
+cita.cit_codigo AS "codigo_cita",
+usuario.usu_id AS "id_usuario",
+usuario.usu_nombre AS "nombre_usuario",
+medico.med_nombreCompleto AS "medico",
+consultorio.cons_nombre AS "consultorio"
+FROM cita
+INNER JOIN usuario ON cita.cit_datosUsuario = usuario.usu_id
+INNER JOIN medico ON cita.cit_medico = medico.med_nroMatriculaProsional
+INNER JOIN consultorio ON medico.med_consultorio = consultorio.cons_codigo;
+
+
+#Obtener todas las citas realizadas por los pacientes de un genero si su estado de la cita fue atendidad
+SELECT 
+cita.cit_codigo AS "codigo_cita",
+cita.cit_estadoCita AS "estado_cita",
+usuario.usu_id AS "identificacion_usuario",
+usuario.usu_nombre AS "nombre_usuario",
+genero.gen_nombre AS "genero"
+FROM cita
+INNER JOIN usuario ON cita.cit_datosUsuario = usuario.usu_id
+INNER JOIN genero ON usuario.usu_genero = genero.gen_id
+WHERE cit_estadoCita = 1 AND genero.gen_abreviatura = "F";
+
+#Insertar un paciente a la tabla usuario pero si es menor de edad solicitar primero que ingrese el acudiente y validar si ya estaba registrado el acudiente.
+
+#if(req.body.usu_edad <= 18){
+
+
