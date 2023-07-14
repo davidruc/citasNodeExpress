@@ -33,7 +33,7 @@ app.use("/api/consultorioCita", routeConsultorioPaciente);
 app.use("/api/atendidaXGenero", routeCitaAtendidaGenero);
 
 //! En esta ruta el estado 3 significa rechazado. 
-app.use("/api/citasCanceladas/mes", routeCitaRechazadas);
+app.use("/api/citasCanceladas/", routeCitaRechazadas);
 
 
 const config = JSON.parse(process.env.MY_CONFIG);

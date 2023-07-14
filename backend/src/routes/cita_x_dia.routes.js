@@ -12,6 +12,7 @@ routeCitasPorDia.use((req,res,next)=>{
 });
 
 routeCitasPorDia.get("/:fecha?", proxyCita, (req,res)=>{
+    console.log(req.params);
     let sql = (req.params.fecha)
         ? [`SELECT 
         cita.cit_codigo AS "codigo_cita",

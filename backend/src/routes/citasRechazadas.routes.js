@@ -12,6 +12,7 @@ routeCitaRechazadas.use((req,res,next)=>{
 });
 
 routeCitaRechazadas.get("/:fecha", proxyCita, (req,res)=>{
+  console.log(req.params);
     let sql = (req.params.fecha)
     ? [`SELECT
     cita.cit_codigo AS "codigo_cita",
@@ -40,6 +41,7 @@ routeCitaRechazadas.get("/:fecha", proxyCita, (req,res)=>{
             res.json(data);
           }
     })
+  
 })
 
 export default routeCitaRechazadas; 

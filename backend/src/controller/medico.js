@@ -9,77 +9,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Expose, Type, Transform } from "class-transformer";
 export class medico {
-    constructor(identificacion, nombre, segundo_nombre, apellido, segundo_apellido, telefono, email, edad, tipo_documento, datos_usuario, acudiente) {
-        this.usu_id = identificacion;
-        this.usu_nombre = nombre;
-        this.usu_segdo_nombre = segundo_nombre;
-        this.usu_primer_apellido_usuar = apellido;
-        this.usu_segdo_apellido_usuar = segundo_apellido;
-        this.usu_telefono = telefono;
-        this.usu_email = email;
-        this.usu_edad = edad;
-        this.usu_tipodoc = tipo_documento;
-        this.cit_datosUsuario = datos_usuario;
-        this.usu_acudiente = acudiente;
+    constructor(matricula_medico, nombre_medico, fk_consultorio, fk_especialidad) {
+        this.med_nroMatriculaProsional = matricula_medico;
+        this.med_nombreCompleto = nombre_medico;
+        this.med_consultorio = fk_consultorio;
+        this.med_especialidad = fk_especialidad;
     }
 }
 __decorate([
-    Expose({ name: "usu_id" }),
+    Expose({ name: "med_nroMatriculaProsional" }),
     Transform(({ value }) => parseInt(value), { toClassOnly: true }),
     __metadata("design:type", Number)
-], medico.prototype, "usu_id", void 0);
+], medico.prototype, "med_nroMatriculaProsional", void 0);
 __decorate([
-    Expose({ name: "usu_nombre" }),
+    Expose({ name: "med_nombreCompleto" }),
     Type(() => String),
     __metadata("design:type", String)
-], medico.prototype, "usu_nombre", void 0);
+], medico.prototype, "med_nombreCompleto", void 0);
 __decorate([
-    Expose({ name: "usu_segdo_nombre" }),
-    Type(() => String),
-    __metadata("design:type", String)
-], medico.prototype, "usu_segdo_nombre", void 0);
-__decorate([
-    Expose({ name: "usu_primer_apellido_usuar" }),
-    Type(() => String),
-    __metadata("design:type", String)
-], medico.prototype, "usu_primer_apellido_usuar", void 0);
-__decorate([
-    Expose({ name: "usu_segdo_apellido_usuar" }),
-    Type(() => String),
-    __metadata("design:type", String)
-], medico.prototype, "usu_segdo_apellido_usuar", void 0);
-__decorate([
-    Expose({ name: "usu_telefono" }),
-    Type(() => String),
-    __metadata("design:type", String)
-], medico.prototype, "usu_telefono", void 0);
-__decorate([
-    Expose({ name: "usu_direccion" }),
-    Type(() => String),
-    __metadata("design:type", String)
-], medico.prototype, "usu_direccion", void 0);
-__decorate([
-    Expose({ name: "usu_email" }),
-    Type(() => String),
-    __metadata("design:type", String)
-], medico.prototype, "usu_email", void 0);
-__decorate([
-    Expose({ name: "usu_edad" }),
+    Expose({ name: " med_consultorio" }),
     Transform(({ value }) => parseInt(value), { toClassOnly: true }),
     __metadata("design:type", Number)
-], medico.prototype, "usu_edad", void 0);
+], medico.prototype, "med_consultorio", void 0);
 __decorate([
-    Expose({ name: "usu_tipodoc" }),
+    Expose({ name: "med_especialidad" }),
     Transform(({ value }) => parseInt(value), { toClassOnly: true }),
     __metadata("design:type", Number)
-], medico.prototype, "usu_tipodoc", void 0);
-__decorate([
-    Expose({ name: "usu_genero" }),
-    Transform(({ value }) => parseInt(value), { toClassOnly: true }),
-    __metadata("design:type", Number)
-], medico.prototype, "cit_datosUsuario", void 0);
-__decorate([
-    Expose({ name: "usu_acudiente" }),
-    Transform(({ value }) => parseInt(value), { toClassOnly: true }),
-    __metadata("design:type", Number)
-], medico.prototype, "usu_acudiente", void 0);
+], medico.prototype, "med_especialidad", void 0);

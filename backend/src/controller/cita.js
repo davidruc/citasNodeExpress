@@ -8,21 +8,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Expose, Type, Transform } from "class-transformer";
+import { IsInt, IsDate } from 'class-validator';
+import 'reflect-metadata';
 export class cita {
-    constructor(id_cita, fecha, estado_cita, medico, usuario) {
+    constructor(id_cita, fecha, estado_cita, medico, usuario, fechaIngresada) {
         this.cit_codigo = id_cita;
         this.cit_fecha = fecha;
         this.cit_estadoCita = estado_cita;
         this.cit_medico = medico;
         this.cit_datosUsuario = usuario;
+        this.fecha = fechaIngresada;
     }
 }
 __decorate([
+    IsInt(),
     Expose({ name: "cit_codigo" }),
     Transform(({ value }) => parseInt(value), { toClassOnly: true }),
     __metadata("design:type", Number)
 ], cita.prototype, "cit_codigo", void 0);
 __decorate([
+    IsDate(),
     Expose({ name: "cit_fecha" }),
     Type(() => Date),
     __metadata("design:type", Date)
@@ -42,3 +47,11 @@ __decorate([
     Transform(({ value }) => parseInt(value), { toClassOnly: true }),
     __metadata("design:type", Number)
 ], cita.prototype, "cit_datosUsuario", void 0);
+__decorate([
+    Expose({ name: "fecha" }),
+    Transform(({ value }) => { if (/^\d{4}-\d{2}-\d{2}$/.test(value))
+        return (value);
+    else
+        throw { status: 400, message: `el paramtro ingresado es invalido` }; }, { toClassOnly: true }),
+    __metadata("design:type", Date)
+], cita.prototype, "fecha", void 0);

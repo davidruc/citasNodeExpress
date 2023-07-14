@@ -6,10 +6,17 @@ import {validate} from 'class-validator'
 
 
 const proxyCita = express();
-proxyCita.use((req, res, next)=>{
+
+proxyCita.use("/:fecha", async (req, res, next)=>{
+
     try{
         let data = plainToClass(cita, req.body, {excludeExtraneousValues: true});
-        req.body = JSON.parse(JSON.stringify(data));
+        await validate(data);
+   /*      console.log(data); */
+        let data2 = plainToClass(cita, req.params, {excludeExtraneousValues: true});
+        console.log(req.params);
+        await validate(data2);
+    /*     console.log(data2); */
         next();
     } catch (err){
         res.status(err.status).send(err);

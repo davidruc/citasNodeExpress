@@ -12,6 +12,7 @@ routeCitaXpaciente.use((req,res,next)=>{
 });
 
 routeCitaXpaciente.get("/:id?", proxyCita, (req,res)=>{
+    console.log(req.params);
     let sql = (req.params.id)
         ? [`SELECT 
         cita.cit_codigo AS "codigo_cita",
