@@ -1,5 +1,5 @@
 import { Router } from "express";
-import proxyCita from "../middleware/middlewarecita.js"
+import {proxyCita} from "../middleware/middlewarecita.js"
 import mysql from "mysql2";
 
 let con = undefined;
@@ -11,8 +11,7 @@ routeCitaRechazadas.use((req,res,next)=>{
     next();
 });
 
-routeCitaRechazadas.get("/:fecha", proxyCita, (req,res)=>{
-  console.log(req.params);
+routeCitaRechazadas.get("/:fecha?", proxyCita, (req,res)=>{
     let sql = (req.params.fecha)
     ? [`SELECT
     cita.cit_codigo AS "codigo_cita",

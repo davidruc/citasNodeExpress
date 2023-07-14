@@ -11,13 +11,14 @@ import { Expose, Type, Transform } from "class-transformer";
 import { IsInt, IsDate } from 'class-validator';
 import 'reflect-metadata';
 export class cita {
-    constructor(id_cita, fecha, estado_cita, medico, usuario, fechaIngresada) {
+    constructor(id_cita, fecha, estado_cita, medico, usuario, fechaIngresada, idIngresada) {
         this.cit_codigo = id_cita;
         this.cit_fecha = fecha;
         this.cit_estadoCita = estado_cita;
         this.cit_medico = medico;
         this.cit_datosUsuario = usuario;
         this.fecha = fechaIngresada;
+        this.id = idIngresada;
     }
 }
 __decorate([
@@ -49,9 +50,19 @@ __decorate([
 ], cita.prototype, "cit_datosUsuario", void 0);
 __decorate([
     Expose({ name: "fecha" }),
-    Transform(({ value }) => { if (/^\d{4}-\d{2}-\d{2}$/.test(value))
+    Transform(({ value }) => { if (/^\d{4}-\d{2}-\d{2}$/.test(value) || typeof value === "undefined")
         return (value);
     else
-        throw { status: 400, message: `el paramtro ingresado es invalido` }; }, { toClassOnly: true }),
+        throw { status: 400, message: `el parametro ingresado es invalido` }; }, { toClassOnly: true }),
     __metadata("design:type", Date)
 ], cita.prototype, "fecha", void 0);
+__decorate([
+    Expose({ name: "id" }),
+    Transform(({ value }) => {
+        if (/^[0-9]+$/.test(value) || typeof value == "undefined")
+            return (value);
+        else
+            throw { status: 400, message: value };
+    }, { toClassOnly: true }),
+    __metadata("design:type", Number)
+], cita.prototype, "id", void 0);
