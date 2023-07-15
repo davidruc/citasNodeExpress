@@ -9,11 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Expose, Type, Transform } from "class-transformer";
 export class medico {
-    constructor(matricula_medico, nombre_medico, fk_consultorio, fk_especialidad) {
+    constructor(matricula_medico, nombre_medico, fk_consultorio, fk_especialidad, especialidadIngresada) {
         this.med_nroMatriculaProsional = matricula_medico;
         this.med_nombreCompleto = nombre_medico;
         this.med_consultorio = fk_consultorio;
         this.med_especialidad = fk_especialidad;
+        this.especialidad = especialidadIngresada;
     }
 }
 __decorate([
@@ -27,7 +28,7 @@ __decorate([
     __metadata("design:type", String)
 ], medico.prototype, "med_nombreCompleto", void 0);
 __decorate([
-    Expose({ name: " med_consultorio" }),
+    Expose({ name: "med_consultorio" }),
     Transform(({ value }) => parseInt(value), { toClassOnly: true }),
     __metadata("design:type", Number)
 ], medico.prototype, "med_consultorio", void 0);
@@ -36,3 +37,13 @@ __decorate([
     Transform(({ value }) => parseInt(value), { toClassOnly: true }),
     __metadata("design:type", Number)
 ], medico.prototype, "med_especialidad", void 0);
+__decorate([
+    Expose({ name: "especialidad" }),
+    Transform(({ value }) => {
+        if (typeof value == "undefined" || /^[a-z A-Z áéíóúÁÉÍÓÚñÑüÜ]+$/.test(value))
+            return value;
+        else
+            throw { status: 400, message: `La especialidad incumple los parámetros acordados` };
+    }, { toClassOnly: true }),
+    __metadata("design:type", String)
+], medico.prototype, "especialidad", void 0);

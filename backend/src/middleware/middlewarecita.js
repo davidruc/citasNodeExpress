@@ -11,7 +11,6 @@ proxyCita.use("/:fecha" , async (req, res, next)=>{
     try{
         let data = plainToClass(cita, req.body, {excludeExtraneousValues: true});
         await validate(data);
-        console.log("en fecha");
         let data2 = plainToClass(cita, req.params, {excludeExtraneousValues: true});
         await validate(data2);
         next();
@@ -32,5 +31,32 @@ proxyById.use("/:id" , async (req, res, next)=>{
         res.status(err.status).send(err);
     }
 })
+
+const proxyCitaByGender = express();
+proxyCitaByGender.use("/:genero" , async (req, res, next)=>{
+    try{
+        let data = plainToClass(cita, req.body, {excludeExtraneousValues: true});
+        await validate(data);
+        let data2 = plainToClass(cita, req.params, {excludeExtraneousValues: true});
+        await validate(data2);
+        next();
+    } catch (err){
+        res.status(err.status).send(err);
+    }
+})
+
+const proxyCitaIdFecha = express();
+proxyCitaIdFecha.use("/:id/:fecha" , async (req, res, next)=>{
+    try{
+        
+        let data = plainToClass(cita, req.body, {excludeExtraneousValues: true});
+        await validate(data);
+        let data2 = plainToClass(cita, req.params, {excludeExtraneousValues: true});
+        await validate(data2);
+        next();
+    } catch (err){
+        res.status(err.status).send(err);
+    }
+})
  
-export {proxyCita, proxyById}
+export {proxyCita, proxyById, proxyCitaByGender, proxyCitaIdFecha}

@@ -11,7 +11,7 @@ import { Expose, Type, Transform } from "class-transformer";
 import { IsInt, IsDate } from 'class-validator';
 import 'reflect-metadata';
 export class cita {
-    constructor(id_cita, fecha, estado_cita, medico, usuario, fechaIngresada, idIngresada) {
+    constructor(id_cita, fecha, estado_cita, medico, usuario, fechaIngresada, idIngresada, generoIngresado) {
         this.cit_codigo = id_cita;
         this.cit_fecha = fecha;
         this.cit_estadoCita = estado_cita;
@@ -19,6 +19,7 @@ export class cita {
         this.cit_datosUsuario = usuario;
         this.fecha = fechaIngresada;
         this.id = idIngresada;
+        this.genero = generoIngresado;
     }
 }
 __decorate([
@@ -53,7 +54,7 @@ __decorate([
     Transform(({ value }) => { if (/^\d{4}-\d{2}-\d{2}$/.test(value) || typeof value === "undefined")
         return (value);
     else
-        throw { status: 400, message: `el parametro ingresado es invalido` }; }, { toClassOnly: true }),
+        throw { status: 400, message: `el parámetro ingresado para fecha no es válido, debe seguir la sintaxis AAAA-MM-DD` }; }, { toClassOnly: true }),
     __metadata("design:type", Date)
 ], cita.prototype, "fecha", void 0);
 __decorate([
@@ -62,7 +63,17 @@ __decorate([
         if (/^[0-9]+$/.test(value) || typeof value == "undefined")
             return (value);
         else
-            throw { status: 400, message: value };
+            throw { status: 400, message: "el dato de id ingresado es incorrecto, ingresa un número entero" };
     }, { toClassOnly: true }),
     __metadata("design:type", Number)
 ], cita.prototype, "id", void 0);
+__decorate([
+    Expose({ name: "genero" }),
+    Transform(({ value }) => {
+        if (/^[A-Z]+$/.test(value) || typeof value == "undefined")
+            return (value);
+        else
+            throw { status: 400, message: "error en el ingreso del dato del género. El ingreso es de la abreviatura en mayúsculas. (revisar base de datos)" };
+    }, { toClassOnly: true }),
+    __metadata("design:type", String)
+], cita.prototype, "genero", void 0);

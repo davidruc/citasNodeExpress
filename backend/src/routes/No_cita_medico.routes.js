@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {proxyCita} from "../middleware/middlewarecita.js"
+import {proxyCitaIdFecha} from "../middleware/middlewarecita.js"
 import mysql from "mysql2";
 
 let con = undefined;
@@ -11,11 +11,12 @@ routeNoCitaXmedico.use((req,res,next)=>{
     next();
 });
 
-routeNoCitaXmedico.get("/:id&:fecha", proxyCita, (req,res)=>{
+routeNoCitaXmedico.get("/:id?/:fecha?", proxyCitaIdFecha, (req,res)=>{
     console.log(req.params);
     let sql = (req.params.id && req.params.fecha)
     ? [`SELECT 
     cita.cit_medico AS "matricula_medico", 
+    cita.cit_fecha AS "fecha_consultas",
     medico.med_nombreCompleto AS "nombre_medico",
     COUNT(*) AS "total_citas"
     FROM cita 
@@ -23,10 +24,12 @@ routeNoCitaXmedico.get("/:id&:fecha", proxyCita, (req,res)=>{
     WHERE cit_fecha = ? AND cit_medico = ?
     GROUP BY cit_medico`, [req.params.fecha, req.params.id]]
     : [`SELECT 
-    cita.cit_medico AS "matricula_medico", 
-    medico.med_nombreCompleto AS "nombre_medico",
-    FROM cita 
-    INNER JOIN medico ON cita.cit_medico = medico.med_nroMatriculaProsional`]
+      cita.cit_medico AS "matricula_medico", 
+      medico.med_nombreCompleto AS "nombre_medico",
+      COUNT(*) AS "total_citas"
+      FROM cita 
+      INNER JOIN medico ON cita.cit_medico = medico.med_nroMatriculaProsional
+      GROUP BY cit_medico`]
     con.query(...sql, (err, data, fil)=>{
         if (err) {
             console.error('Error al obtener los datos de las citas:', err.message);

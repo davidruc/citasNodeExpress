@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {proxyCita} from "../middleware/middlewarecita.js"
+import {proxyCitaByGender} from "../middleware/middlewarecita.js"
 import mysql from "mysql2";
 
 let con = undefined;
@@ -11,7 +11,7 @@ routeCitaAtendidaGenero.use((req,res,next)=>{
     next();
 });
 
-routeCitaAtendidaGenero.get("/:genero", proxyCita, (req,res)=>{
+routeCitaAtendidaGenero.get("/:genero?", proxyCitaByGender, (req,res)=>{
     console.log(req.params);
     let sql = (req.params.genero)
     ? [`SELECT 

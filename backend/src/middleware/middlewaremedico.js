@@ -1,13 +1,14 @@
 import express from "express";
 import "reflect-metadata";
 import { plainToClass } from "class-transformer";
-import {medico} from "../controller/medico.js"
+import {medico} from "../controller/medico.js";
+import {validate} from 'class-validator';
 
 const proxymedico = express();
-proxymedico.use((req, res, next)=>{
+proxymedico.use("/:especialidad" , async (req, res, next)=>{
     try{
         let data = plainToClass(medico, req.body, {excludeExtraneousValues: true});
-        req.body = JSON.parse(JSON.stringify(data));
+        await validate(data);
         next();
     } catch (err){
         res.status(err.status).send(err);
