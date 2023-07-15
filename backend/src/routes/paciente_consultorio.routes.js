@@ -11,7 +11,7 @@ routeConsultorioPaciente.use((req,res,next)=>{
     next();
 });
 
-routeConsultorioPaciente.get("/:id", proxyById, (req,res)=>{
+routeConsultorioPaciente.get("/:id?", proxyById, (req,res)=>{
     let sql = (req.params.id)
     ? [`SELECT
     cita.cit_codigo AS "codigo_cita",

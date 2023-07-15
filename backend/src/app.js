@@ -28,12 +28,8 @@ app.use("/api/citasXfecha", routeCitasPorDia);
 app.use("/api/consultorios", routesConsultorioDoctores);
 app.use("/api/numeroCitas", routeNoCitaXmedico);
 app.use("/api/consultorioCita", routeConsultorioPaciente);
-
-//! En esta ruta el estado 4 significa aprobado, y los valores a entrar como parámetros de la url son las abreviaturas de los generos.
-app.use("/api/atendidaXGenero", routeCitaAtendidaGenero);
-
-//! En esta ruta el estado 3 significa rechazado. 
-app.use("/api/citasCanceladas/", routeCitaRechazadas);
+app.use("/api/atendidaXGenero", routeCitaAtendidaGenero); 
+app.use("/api/citasCanceladas", routeCitaRechazadas);
 
 
 const config = JSON.parse(process.env.MY_CONFIG);
