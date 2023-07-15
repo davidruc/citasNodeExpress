@@ -1,12 +1,18 @@
 # Proyecto citas con NODE y EXPRESS
 
-[TOC]
+## Tabla de contenido:
 
-# Tecnologías
+- [Tecnologias](#tecnologías)
+- [Dependencias de npm](#dependencias-utilizadas)
+- [Esquema sql](#esquema-sql)
+- [Requerimientos del proyecto](#requerimientos)
+- [Solución: Endpoints](#end-points)
+
+## Tecnologías
 
 <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="50" height="50"/><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="50" height="50"/><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="60" height="60"/><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express" width="60" height="60"/><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="50" height="50"/> 
 
-	# Dependencias utilizadas
+## Dependencias utilizadas
 
 Para el presente proyecto se van a utilizar las siguientes dependencias en sus respectivas versiones:
 
@@ -20,13 +26,13 @@ Para el presente proyecto se van a utilizar las siguientes dependencias en sus r
         "typescript": "5.1.6"
   ```
 
-# Esquema SQL 
+## Esquema SQL 
 
 ![esquemaSql](./diagrama.png)
 
 
 
-# Requerimientos
+## Requerimientos
 
 1. Obtener todos los pacientes alfabéticamente
 
@@ -56,7 +62,7 @@ Para el presente proyecto se van a utilizar las siguientes dependencias en sus r
 
 
 
-# END-POINTS  
+## END-POINTS  
 
 En este punto se da solución a los requerimientos del punto anterior:
 
